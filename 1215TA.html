@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Calculator</title>
+</head>
+<body>
+  <h1></h1>
+
+  <script>
+    function add(x, y) {
+      return x + y;
+    }
+
+    function subtract(x, y) {
+      return x - y;
+    }
+
+    function multiply(x, y) {
+      return x * y;
+    }
+
+    function divide(x, y) {
+      return x / y;
+    }
+
+    function getUserInput(message) {
+      var input = prompt(message);
+      if (input === null) {
+        return null; // Return null if the user clicks "Cancel"
+      }
+      while (isNaN(input)) {
+        alert('Please enter a valid number.');
+        input = prompt(message);
+        if (input === null) {
+          return null; // Return null if the user clicks "Cancel"
+        }
+      }
+      return parseFloat(input);
+    }
+
+    function getOperation() {
+      var operation = prompt('Choose an operation (+, -, *, /):');
+      if (operation === null) {
+        return null; // Return null if the user clicks "Cancel"
+      }
+      while (!['+', '-', '*', '/'].includes(operation)) {
+        alert('Please enter a valid operation.');
+        operation = prompt('Choose an operation (+, -, *, /):');
+        if (operation === null) {
+          return null; // Return null if the user clicks "Cancel"
+        }
+      }
+      return operation;
+    }
+
+    function performAnotherCalculation() {
+      var answer = prompt('Do you want to perform another calculation? (no/yes):'); // Switched "no" and "yes"
+      return answer !== null && answer.toLowerCase() === 'yes';
+    }
+
+    do {
+      var num1 = getUserInput('Enter the first number:');
+      if (num1 === null) {
+        break; // Exit the loop if the user clicks "Cancel"
+      }
+
+      var num2 = getUserInput('Enter the second number:');
+      if (num2 === null) {
+        break; // Exit the loop if the user clicks "Cancel"
+      }
+
+      var operator = getOperation();
+      if (operator === null) {
+        break; // Exit the loop if the user clicks "Cancel"
+      }
+
+      var result;
+
+      switch (operator) {
+        case '+':
+          result = add(num1, num2);
+          break;
+        case '-':
+          result = subtract(num1, num2);
+          break;
+        case '*':
+          result = multiply(num1, num2);
+          break;
+        case '/':
+          if (num2 === 0) {
+            alert('Cannot divide by zero.');
+            continue;
+          } else {
+            result = divide(num1, num2);
+          }
+          break;
+      }
+
+      alert('Result: ' + result);
+    } while (performAnotherCalculation());
+  </script>
+</body>
+</html>
